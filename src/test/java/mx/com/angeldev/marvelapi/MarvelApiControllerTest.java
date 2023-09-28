@@ -1,6 +1,9 @@
 package mx.com.angeldev.marvelapi;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -18,7 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 @WebAppConfiguration
 class MarvelApiControllerTest {
 
-MockMvc mockMvc;
+	MockMvc mockMvc;
 	
 	private final static String BASE_URL = "/marvel/characters/";
 	
@@ -34,16 +36,27 @@ MockMvc mockMvc;
 	
 	@Test
 	void getAll() throws Exception {
-		MvcResult mvc = mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL).accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
-		System.out.println(mvc.getResponse().getStatus());
-		assertEquals(200, mvc.getResponse().getStatus());
+		mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL)
+				.accept(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(status().isOk()).andReturn();
 	}
 	
 	@Test
 	void getCharacter() throws Exception {
-		MvcResult mvc = mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL).queryParam("id", "1011334").accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
-		System.out.println(mvc.getResponse().getStatus());
-		assertEquals(200, mvc.getResponse().getStatus());
+		mockMvc.perform(get(BASE_URL+"1011334")
+	            .accept(MediaType.APPLICATION_JSON_VALUE))
+	            .andExpect(status().isOk())
+	            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+	            .andExpect(jsonPath("$.id").value(1011334))
+	            .andReturn();
+	}
+	
+	@Test
+	void getCharacterFail() throws Exception {
+		mockMvc.perform(get(BASE_URL+"99")
+	            .accept(MediaType.APPLICATION_JSON_VALUE))
+	            .andExpect(status().is5xxServerError())
+	            .andReturn();
 	}
 
 }
