@@ -2,12 +2,12 @@ package mx.com.angeldev.marvelapi.app;
 
 import org.springframework.http.ResponseEntity;
 
-import mx.com.angeldev.marveljar.model.CharacterDataWrapper;
+import mx.com.angeldev.marveljar.model.Character;
 
 public interface MarvelApiService {
 	
-	public ResponseEntity<CharacterDataWrapper> getAllCharacters();
+	public ResponseEntity<Character[]> getAllCharacters() throws Exception;
 	
-	public ResponseEntity<CharacterDataWrapper> getCharacterById(Long id);
+	public ResponseEntity<Character> getCharacterById(Long id) throws Exception;
 
 }

@@ -1,6 +1,5 @@
 package mx.com.angeldev.marvelapi.controller;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import mx.com.angeldev.marvelapi.app.BitacoraService;
 import mx.com.angeldev.marvelapi.app.MarvelApiService;
 import mx.com.angeldev.marvelapi.dao.BitacoraEntity;
-
 import mx.com.angeldev.marveljar.model.Character;
 
 @RestController
@@ -30,18 +28,15 @@ public class MarvelApiController {
 	
 	
 	@GetMapping("/")
-	public List<Character> getAllCharacters() {
-		
+	public ResponseEntity<Character[]> getAllCharacters() throws Exception {
 		bitacoraService.saveBitacora("all characters");
-		List<Character> dataList = Arrays.asList(marvelApiService.getAllCharacters().getBody().getData().getResults());
-		return dataList;
+		return marvelApiService.getAllCharacters();
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Character> getCharacterById(@PathVariable Long id){
+	public ResponseEntity<Character> getCharacterById(@PathVariable Long id)throws Exception {
 		bitacoraService.saveBitacora("character info");
-		return ResponseEntity.ok(marvelApiService.getCharacterById(id).getBody().getData().getResults()[0]);
-		
+		return marvelApiService.getCharacterById(id);	
 	}
 	
 	@GetMapping("/bitacora")
