@@ -16,7 +16,7 @@ import mx.com.angeldev.marvelapi.dao.BitacoraEntity;
 import mx.com.angeldev.marveljar.model.Character;
 
 @RestController
-@RequestMapping("public/marvel/characters")
+@RequestMapping("marvel/characters")
 @CrossOrigin(origins="http://localhost:4200")
 public class MarvelApiController {
 	

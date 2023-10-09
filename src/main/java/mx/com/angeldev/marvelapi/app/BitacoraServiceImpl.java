@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.com.angeldev.marvelapi.dao.BitacoraEntity;
-import mx.com.angeldev.marvelapi.dao.BitacoraRepository;
+import mx.com.angeldev.marvelapi.dao.BitacoraRepositoryDAO;
 
 @Service
 public class BitacoraServiceImpl implements BitacoraService {
 	
 	@Autowired
-	private BitacoraRepository bitacoraRepository;
+	private BitacoraRepositoryDAO bitacoraRepository;
 
 	@Override
 	public List<BitacoraEntity> getAll() {
