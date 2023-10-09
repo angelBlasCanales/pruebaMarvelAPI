@@ -1,0 +1,27 @@
+{"properties": [
+  {
+    "name": "marvel.api.key",
+    "type": "java.lang.String",
+    "description": "Llave pública para el consumo de la API"
+  },
+  {
+    "name": "marvel.api.private-key",
+    "type": "java.lang.String",
+    "description": "Llave privada para el consumo de la API"
+  },
+  {
+    "name": "marvel.api.base-url",
+    "type": "java.lang.String",
+    "description": "URL base para el consumo de la API"
+  },
+  {
+    "name": "endpoint.all.characters",
+    "type": "java.lang.String",
+    "description": "Endpoint para obtener la lista de todos los personajes"
+  },
+  {
+    "name": "endpoint.by.id",
+    "type": "java.lang.String",
+    "description": "Endpoint para obtener un personaje por ID"
+  }
+]}
